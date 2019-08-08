@@ -1,0 +1,35 @@
+from temperament import *
+import pytest as pt
+
+def test_equal_temperament():
+    t = Temperament([0.0 for i in range(12)])
+    eps = 0.001
+    assert t.getFrequency('Cb1') == pt.approx(30.868, eps)
+    assert t.getFrequency('Cbb1') == pt.approx(29.135, eps)
+    assert t.getFrequency('B#1') == pt.approx(65.406, eps)
+    assert t.getFrequency('C0') == pt.approx(16.352, eps)
+    assert t.getFrequency('C8') == pt.approx(4186.009, eps)
+    assert t.getFrequency('Db3') == pt.approx(138.591, eps)
+    assert t.getFrequency('C#7') == pt.approx(2217.461, eps)
+    assert t.getFrequency('D1') == pt.approx(36.708, eps)
+    assert t.getFrequency('C##2') == pt.approx(73.416, eps)
+    assert t.getFrequency('Eb4') == pt.approx(311.127, eps)
+    assert t.getFrequency('D#5') == pt.approx(622.254, eps)
+    assert t.getFrequency('E5') == pt.approx(659.255, eps)
+    assert t.getFrequency('Fb2') == pt.approx(82.407, eps)
+    assert t.getFrequency('Gb6') == pt.approx(1479.978, eps)
+    assert t.getFrequency('F#3') == pt.approx(184.997, eps)
+    assert t.getFrequency('G7') == pt.approx(3135.963, eps)
+    assert t.getFrequency('F##2') == pt.approx(97.999, eps)
+    assert t.getFrequency('Abb1') == pt.approx(48.999, eps)
+    assert t.getFrequency('Ab4') == pt.approx(415.305, eps)
+    assert t.getFrequency('G#5') == pt.approx(830.609, eps)
+    assert t.getFrequency('A4') == pt.approx(440.000, eps)
+    assert t.getFrequency('G##0') == pt.approx(27.500, eps)
+    assert t.getFrequency('Bbb5') == pt.approx(880.000, eps)
+    assert t.getFrequency('Bb3') == pt.approx(233.082, eps)
+    assert t.getFrequency('A#6') == pt.approx(1864.655, eps)
+    assert t.getFrequency('B7') == pt.approx(3951.066, eps)
+    assert t.getFrequency('A##2') == pt.approx(123.471, eps)
+    assert t.getFrequency('Cb5') == pt.approx(493.883, eps)
+

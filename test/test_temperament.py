@@ -33,56 +33,74 @@ def test_equal_temperament():
     assert t.getFrequency('A##2') == pt.approx(123.471, eps)
     assert t.getFrequency('Cb5') == pt.approx(493.883, eps)
 
+bryce_temp_data = [
+    ['C2', 65.615, -3.203, 1.460, 0.372, -0.222, -5.035, 1.927],
+    ['C#2', 69.416, -4.580, 3.361, 0.033, -0.295, -5.327, 3.707],
+    ['D2', 73.533, -3.147, 2.597, 0.800, -0.599, -3.620, 3.283],
+    ['Eb2', 78.097, -5.754, 2.758, -0.459, -0.433, -6.529, 3.203],
+    ['E2', 82.383, -2.745, 3.989, 0.468, 0.149, -2.920, 4.580],
+    ['F2', 87.610, -5.780, 1.949, 0.345, -0.372, -6.723, 3.147],
+    ['F#2', 92.565, -5.392, 4.888, 0.686, -0.033, -5.194, 5.754],
+    ['G2', 98.311, -5.221, 3.044, 0.444, -0.800, -5.517, 2.745],
+    ['G#2', 103.976, -5.611, 5.035, 0.590, 0.459, -7.979, 5.780],
+    ['A2', 110.000, -3.855, 5.327, 1.197, -0.468, -3.898, 5.392],
+    ['Bb2', 116.929, -7.414, 3.620, 0.867, -0.345, -9.775, 5.221],
+    ['B2', 123.649, -6.566, 6.529, -0.298, -0.686, -6.087, 5.611],
+    ['C3', 131.229, -6.405, 2.920, 0.745, -0.444, -10.070, 3.855],
+    ['C#3', 138.832, -9.159, 6.723, 0.066, -0.590, -10.653, 7.414],
+    ['D3', 147.066, -6.293, 5.194, 1.601, -1.197, -7.240, 6.566],
+    ['Eb3', 156.194, -11.508, 5.517, -0.918, -0.867, -13.058, 6.405],
+    ['E3', 164.766, -5.490, 7.979, 0.935, 0.298, -5.839, 9.159],
+    ['F3', 175.220, -11.560, 3.898, 0.691, -0.745, -13.446, 6.293],
+    ['F#3', 185.131, -10.785, 9.775, 1.372, -0.066, -10.389, 11.508],
+    ['G3', 196.621, -10.442, 6.087, 0.889, -1.601, -11.033, 5.490],
+    ['G#3', 207.952, -11.222, 10.070, 1.180, 0.918, -15.958, 11.560],
+    ['A3', 220.000, -7.710, 10.653, 2.395, -0.935, -7.797, 10.785],
+    ['Bb3', 233.857, -14.827, 7.240, 1.733, -0.691, -19.550, 10.442],
+    ['B3', 247.299, -13.133, 13.058, -0.597, -1.372, -12.174, 11.222],
+    ['C4', 262.458, -12.811, 5.839, 1.490, -0.889, -20.140, 7.710],
+    ['C#4', 277.663, -18.318, 13.446, 0.132, -1.180, -21.307, 14.827],
+    ['D4', 294.132, -12.586, 10.389, 3.202, -2.395, -14.480, 13.133],
+    ['Eb4', 312.388, -23.017, 11.033, -1.836, -1.733, -26.115, 12.811],
+    ['E4', 329.532, -10.980, 15.958, 1.871, 0.597, -11.678, 18.318],
+    ['F4', 350.441, -23.120, 7.797, 1.381, -1.490, -26.892, 12.586],
+    ['F#4', 370.262, -21.570, 19.550, 2.744, -0.132, -20.777, 23.017],
+    ['G4', 393.243, -20.883, 12.174, 1.777, -3.202, -22.067, 10.980],
+    ['G#4', 415.905, -22.444, 20.140, 2.361, 1.836, -31.915, 23.120],
+    ['A4', 440.000, -15.419, 21.307, 4.790, -1.871, -15.593, 21.570],
+    ['Bb4', 467.715, -29.654, 14.480, 3.467, -1.381, -39.100, 20.883],
+    ['B4', 494.597, -26.266, 26.115, -1.194, -2.744, -24.349, 22.444],
+    ['C5', 524.916, -25.621, 11.678, 2.980, -1.777, -40.280, 15.419],
+    ['C#5', 555.327, -36.637, 26.892, 0.263, -2.361, -42.614, 29.654],
+    ['D5', 588.263, -25.173, 20.777, 6.404, -4.790, -28.960, 26.266],
+    ['Eb5', 624.775, -46.034, 22.067, -3.671, -3.467, -52.230, 25.621],
+    ['E5', 659.065, -21.961, 31.915, 3.741, 1.194, -23.357, 36.637],
+    ['F5', 700.881, -46.239, 15.593, 2.762, -2.980, -53.783, 25.173],
+    ['F#5', 740.523, -43.140, 39.100, 5.489, -0.263, -41.554, 46.034],
+    ['G5', 786.486, -41.767, 24.349, 3.555, -6.404, -44.134, 21.961],
+    ['G#5', 831.810, -44.888, 40.280, 4.722, 3.671, -63.830, 46.239],
+    ['A5', 880.000, -30.839, 42.614, 9.579, -3.741, -31.187, 43.140],
+    ['Bb5', 935.429, -59.308, 28.960, 6.933, -2.762, -78.201, 41.767],
+    ['B5', 989.194, -52.532, 52.230, -2.388, -5.489, -48.697, 44.888]]
+
 def test_bryce_temperament():
     v = [5.5, 3.0, 2.75, 7.0, -0.5, 6.0, 1.25, 5.5, 2.5, 0.0, 5.75, 2.5]
     t = Temperament(v)
-    eps = 0.001
-    assert t.getFrequency('C2') == pt.approx(65.615, eps)
-    assert t.getFrequency('C#2') == pt.approx(69.416, eps)
-    assert t.getFrequency('D2') == pt.approx(73.533, eps)
-    assert t.getFrequency('Eb2') == pt.approx(78.097, eps)
-    assert t.getFrequency('E2') == pt.approx(82.383, eps)
-    assert t.getFrequency('F2') == pt.approx(87.610, eps)
-    assert t.getFrequency('F#2') == pt.approx(92.565, eps)
-    assert t.getFrequency('G2') == pt.approx(98.311, eps)
-    assert t.getFrequency('G#2') == pt.approx(103.976, eps)
-    assert t.getFrequency('A2') == pt.approx(110.000, eps)
-    assert t.getFrequency('Bb2') == pt.approx(116.929, eps)
-    assert t.getFrequency('B2') == pt.approx(123.649, eps)
-    assert t.getFrequency('C3') == pt.approx(131.229, eps)
-    assert t.getFrequency('C#3') == pt.approx(138.832, eps)
-    assert t.getFrequency('D3') == pt.approx(147.066, eps)
-    assert t.getFrequency('Eb3') == pt.approx(156.194, eps)
-    assert t.getFrequency('E3') == pt.approx(164.766, eps)
-    assert t.getFrequency('F3') == pt.approx(175.220, eps)
-    assert t.getFrequency('F#3') == pt.approx(185.131, eps)
-    assert t.getFrequency('G3') == pt.approx(196.621, eps)
-    assert t.getFrequency('G#3') == pt.approx(207.952, eps)
-    assert t.getFrequency('A3') == pt.approx(220.000, eps)
-    assert t.getFrequency('Bb3') == pt.approx(233.857, eps)
-    assert t.getFrequency('B3') == pt.approx(247.299, eps)
-    assert t.getFrequency('C4') == pt.approx(262.458, eps)
-    assert t.getFrequency('C#4') == pt.approx(277.663, eps)
-    assert t.getFrequency('D4') == pt.approx(294.132, eps)
-    assert t.getFrequency('Eb4') == pt.approx(312.388, eps)
-    assert t.getFrequency('E4') == pt.approx(329.532, eps)
-    assert t.getFrequency('F4') == pt.approx(350.441, eps)
-    assert t.getFrequency('F#4') == pt.approx(370.262, eps)
-    assert t.getFrequency('G4') == pt.approx(393.243, eps)
-    assert t.getFrequency('G#4') == pt.approx(415.905, eps)
-    assert t.getFrequency('A4') == pt.approx(440.000, eps)
-    assert t.getFrequency('Bb4') == pt.approx(467.715, eps)
-    assert t.getFrequency('B4') == pt.approx(494.597, eps)
-    assert t.getFrequency('C5') == pt.approx(524.916, eps)
-    assert t.getFrequency('C#5') == pt.approx(555.327, eps)
-    assert t.getFrequency('D5') == pt.approx(588.263, eps)
-    assert t.getFrequency('Eb5') == pt.approx(624.775, eps)
-    assert t.getFrequency('E5') == pt.approx(659.065, eps)
-    assert t.getFrequency('F5') == pt.approx(700.881, eps)
-    assert t.getFrequency('F#5') == pt.approx(740.523, eps)
-    assert t.getFrequency('G5') == pt.approx(786.486, eps)
-    assert t.getFrequency('G#5') == pt.approx(831.810, eps)
-    assert t.getFrequency('A5') == pt.approx(880.000, eps)
-    assert t.getFrequency('Bb5') == pt.approx(935.429, eps)
-    assert t.getFrequency('B5') == pt.approx(989.194, eps)
+    eps = 0.01
+    for line in bryce_temp_data:
+        note = line[0]
+        freq = line[1]
+        m3_beat = line[2]
+        M3_beat = line[3]
+        P4_beat = line[4]
+        P5_beat = line[5]
+        m6_beat = line[6]
+        M6_beat = line[7]
+        assert t.getFrequency(note) == pt.approx(freq, eps)
+        assert t.getBeatFrequency(note, 'm3') == pt.approx(m3_beat, eps)
+        assert t.getBeatFrequency(note, 'M3') == pt.approx(M3_beat, eps)
+        assert t.getBeatFrequency(note, 'P4') == pt.approx(P4_beat, eps)
+        assert t.getBeatFrequency(note, 'P5') == pt.approx(P5_beat, eps)
+        assert t.getBeatFrequency(note, 'm6') == pt.approx(m6_beat, eps)
+        assert t.getBeatFrequency(note, 'M6') == pt.approx(M6_beat, eps)
 
